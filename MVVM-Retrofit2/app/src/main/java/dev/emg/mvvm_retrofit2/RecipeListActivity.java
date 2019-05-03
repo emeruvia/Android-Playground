@@ -2,7 +2,6 @@ package dev.emg.mvvm_retrofit2;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class RecipeListActivity extends BaseActivity {
 
