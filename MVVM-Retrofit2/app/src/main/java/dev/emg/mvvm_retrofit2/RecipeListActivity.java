@@ -1,14 +1,12 @@
 package dev.emg.mvvm_retrofit2;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import dev.emg.mvvm_retrofit2.model.Recipe;
 import dev.emg.mvvm_retrofit2.requests.RecipeApi;
 import dev.emg.mvvm_retrofit2.requests.ServiceGenerator;
 import dev.emg.mvvm_retrofit2.requests.responses.RecipeSearchResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;

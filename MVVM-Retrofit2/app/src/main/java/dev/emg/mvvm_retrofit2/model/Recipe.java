@@ -75,27 +75,27 @@ public class Recipe implements Parcelable {
     this.ingredients = ingredients;
   }
 
-  public String getRecipe_id() {
+  public String getRecipeId() {
     return recipe_id;
   }
 
-  public void setRecipe_id(String recipe_id) {
+  public void setRecipeId(String recipe_id) {
     this.recipe_id = recipe_id;
   }
 
-  public String getImage_url() {
+  public String getImageUrl() {
     return image_url;
   }
 
-  public void setImage_url(String image_url) {
+  public void setImageUrl(String image_url) {
     this.image_url = image_url;
   }
 
-  public float getSocial_rank() {
+  public float getSocialRank() {
     return social_rank;
   }
 
-  public void setSocial_rank(float social_rank) {
+  public void setSocialRank(float social_rank) {
     this.social_rank = social_rank;
   }
 
