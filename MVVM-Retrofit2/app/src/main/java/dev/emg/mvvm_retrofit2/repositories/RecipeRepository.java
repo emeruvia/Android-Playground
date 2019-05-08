@@ -1,7 +1,6 @@
 package dev.emg.mvvm_retrofit2.repositories;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import dev.emg.mvvm_retrofit2.requests.RecipeApiClient;
 import java.util.List;
@@ -30,4 +29,6 @@ public class RecipeRepository {
   public LiveData<List<Recipe>> getRecipes() {
     return mRecipeApiClient.getRecipes();
   }
+
+
 }
