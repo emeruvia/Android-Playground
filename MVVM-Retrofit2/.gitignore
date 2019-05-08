@@ -13,5 +13,4 @@
 /build
 /captures
 .externalNativeBuild
-api_key.xml
 Secrets.java
