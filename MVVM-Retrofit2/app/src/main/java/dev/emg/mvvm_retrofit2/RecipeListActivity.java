@@ -12,6 +12,7 @@ import dev.emg.mvvm_retrofit2.requests.RecipeApi;
 import dev.emg.mvvm_retrofit2.requests.ServiceGenerator;
 import dev.emg.mvvm_retrofit2.requests.responses.RecipeSearchResponse;
 
+import dev.emg.mvvm_retrofit2.util.Testing;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +48,7 @@ public class RecipeListActivity extends BaseActivity {
       public void onChanged(List<Recipe> recipes) {
         // onChanged method will trigger if anything is changed or added to the list of recipes
         if (recipes != null) {
-          for (Recipe recipe : recipes) {
-            Log.d(TAG, "onChanged: " + recipe.getTitle());
-          }
+          Testing.printRecipes(recipes, TAG);
         }
       }
     });
