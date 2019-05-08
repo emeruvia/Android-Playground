@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import dev.emg.mvvm_retrofit2.AppExecutors;
 import dev.emg.mvvm_retrofit2.model.Recipe;
 import dev.emg.mvvm_retrofit2.requests.responses.RecipeSearchResponse;
-import dev.emg.mvvm_retrofit2.util.Constants;
+import dev.emg.mvvm_retrofit2.util.Secrets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +103,7 @@ public class RecipeApiClient {
 
     private Call<RecipeSearchResponse> getRecipes(String query, int pageNumber) {
       return ServiceGenerator.getRecipeApi().searchRecipe(
-          Constants.BASE_URL,
+          Secrets.API_KEY,
           query,
           String.valueOf(pageNumber));
     }
