@@ -1,25 +1,17 @@
 package dev.emg.mvvm_retrofit2;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import android.view.View;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import dev.emg.mvvm_retrofit2.model.Recipe;
-import dev.emg.mvvm_retrofit2.requests.RecipeApi;
-import dev.emg.mvvm_retrofit2.requests.ServiceGenerator;
-import dev.emg.mvvm_retrofit2.requests.responses.RecipeSearchResponse;
 
 import dev.emg.mvvm_retrofit2.util.Testing;
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.emg.mvvm_retrofit2.viewmodels.RecipeListViewModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecipeListActivity extends BaseActivity {
 
