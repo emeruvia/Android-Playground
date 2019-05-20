@@ -1,44 +1,40 @@
 package dev.emg.mvvm_retrofit2;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import android.view.View;
+import android.util.Log;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import dev.emg.mvvm_retrofit2.adapters.OnRecipeListener;
+import dev.emg.mvvm_retrofit2.adapters.RecipeRecyclerAdapter;
 import dev.emg.mvvm_retrofit2.model.Recipe;
-import dev.emg.mvvm_retrofit2.requests.RecipeApi;
-import dev.emg.mvvm_retrofit2.requests.ServiceGenerator;
-import dev.emg.mvvm_retrofit2.requests.responses.RecipeSearchResponse;
 
 import dev.emg.mvvm_retrofit2.util.Testing;
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.emg.mvvm_retrofit2.viewmodels.RecipeListViewModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class RecipeListActivity extends BaseActivity {
+public class RecipeListActivity extends BaseActivity implements OnRecipeListener {
 
   private static final String TAG = "RecipeListActivity";
 
   private RecipeListViewModel mRecipeListViewModel;
+  private RecyclerView mRecyclerView;
+  private RecipeRecyclerAdapter mAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipe_list);
+    mRecyclerView = findViewById(R.id.recipe_list);
     // Reference and instantiation of the ViewModel
     mRecipeListViewModel = ViewModelProviders.of(this).get(RecipeListViewModel.class);
+    initRecyclerView();
     subscribeObservers();
-    findViewById(R.id.test_btn).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
-        testRetrofitRequest();
-      }
-    });
+    testRetrofitRequest();
   }
 
   // Observe the livedata object
@@ -50,15 +46,30 @@ public class RecipeListActivity extends BaseActivity {
         if (recipes != null) {
           Testing.printRecipes(recipes, TAG);
         }
+        mAdapter.setRecipes(recipes);
       }
     });
+  }
+
+  private void testRetrofitRequest() {
+    searchRecipesApi("chicken breast", 1);
+  }
+
+  private void initRecyclerView() {
+    mAdapter = new RecipeRecyclerAdapter(this);
+    mRecyclerView.setAdapter(mAdapter);
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
   }
 
   private void searchRecipesApi(String query, int pageNumber) {
     mRecipeListViewModel.searchRecipesApi(query, pageNumber);
   }
 
-  private void testRetrofitRequest() {
-    searchRecipesApi("chicken breast", 1);
+  @Override public void onRecipeClick(int position) {
+    Log.d(TAG, "onRecipeClick: clicked." + position);
+  }
+
+  @Override public void onCategoryClick(String category) {
+
   }
 }
