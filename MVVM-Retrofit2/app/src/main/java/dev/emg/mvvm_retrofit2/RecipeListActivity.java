@@ -3,6 +3,7 @@ package dev.emg.mvvm_retrofit2;
 import android.os.Bundle;
 
 import android.util.Log;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -34,7 +35,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     mRecipeListViewModel = ViewModelProviders.of(this).get(RecipeListViewModel.class);
     initRecyclerView();
     subscribeObservers();
-    testRetrofitRequest();
+    initSearchView();
   }
 
   // Observe the livedata object
@@ -51,14 +52,25 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     });
   }
 
-  private void testRetrofitRequest() {
-    searchRecipesApi("chicken breast", 1);
-  }
-
   private void initRecyclerView() {
     mAdapter = new RecipeRecyclerAdapter(this);
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+  }
+
+  private void initSearchView() {
+    final SearchView searchView = findViewById(R.id.search_view);
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override public boolean onQueryTextSubmit(String query) {
+        mRecipeListViewModel.searchRecipesApi(query, 1);
+        return false;
+      }
+
+      @Override public boolean onQueryTextChange(String newText) {
+        // Queries as the user types
+        return false;
+      }
+    });
   }
 
   private void searchRecipesApi(String query, int pageNumber) {
