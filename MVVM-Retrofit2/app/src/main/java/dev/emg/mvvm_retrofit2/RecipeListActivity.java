@@ -14,6 +14,7 @@ import dev.emg.mvvm_retrofit2.adapters.RecipeRecyclerAdapter;
 import dev.emg.mvvm_retrofit2.model.Recipe;
 
 import dev.emg.mvvm_retrofit2.util.Testing;
+import dev.emg.mvvm_retrofit2.util.VerticalSpacingItemDecorator;
 import java.util.List;
 
 import dev.emg.mvvm_retrofit2.viewmodels.RecipeListViewModel;
@@ -58,6 +59,8 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
   private void initRecyclerView() {
     mAdapter = new RecipeRecyclerAdapter(this);
+    VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(30);
+    mRecyclerView.addItemDecoration(itemDecorator);
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
   }
