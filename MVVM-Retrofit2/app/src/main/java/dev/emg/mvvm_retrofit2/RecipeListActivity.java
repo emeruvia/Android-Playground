@@ -36,6 +36,10 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     initRecyclerView();
     subscribeObservers();
     initSearchView();
+    if (!mRecipeListViewModel.isViewingRecipes()) {
+      // display search categories
+      displaySearchCategories();
+    }
   }
 
   // Observe the livedata object
@@ -79,10 +83,17 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
   }
 
   @Override public void onRecipeClick(int position) {
-    Log.d(TAG, "onRecipeClick: clicked." + position);
+    Log.d(TAG, "onRecipeClick: " + position);
   }
 
   @Override public void onCategoryClick(String category) {
+    Log.d(TAG, "onCategoryClick: " + category);
+    mAdapter.displayLoading();
+    mRecipeListViewModel.searchRecipesApi(category, 1);
+  }
 
+  private void displaySearchCategories() {
+    mRecipeListViewModel.setIsViewingRecipes(false);
+    mAdapter.displaySearchCategories();
   }
 }
