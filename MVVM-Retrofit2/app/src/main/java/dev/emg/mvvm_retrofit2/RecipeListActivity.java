@@ -26,12 +26,14 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
   private RecipeListViewModel mRecipeListViewModel;
   private RecyclerView mRecyclerView;
   private RecipeRecyclerAdapter mAdapter;
+  private SearchView mSearchView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipe_list);
     mRecyclerView = findViewById(R.id.recipe_list);
+    mSearchView = findViewById(R.id.search_view);
     // Reference and instantiation of the ViewModel
     mRecipeListViewModel = ViewModelProviders.of(this).get(RecipeListViewModel.class);
     initRecyclerView();
@@ -50,9 +52,12 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
       public void onChanged(List<Recipe> recipes) {
         // onChanged method will trigger if anything is changed or added to the list of recipes
         if (recipes != null) {
-          Testing.printRecipes(recipes, TAG);
+          if (mRecipeListViewModel.isViewingRecipes()) {
+            Testing.printRecipes(recipes, TAG);
+            mRecipeListViewModel.setIsPerformingQuery(false);
+            mAdapter.setRecipes(recipes);
+          }
         }
-        mAdapter.setRecipes(recipes);
       }
     });
   }
@@ -66,11 +71,11 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
   }
 
   private void initSearchView() {
-    final SearchView searchView = findViewById(R.id.search_view);
-    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override public boolean onQueryTextSubmit(String query) {
         mAdapter.displayLoading();
         mRecipeListViewModel.searchRecipesApi(query, 1);
+        mSearchView.clearFocus();
         return false;
       }
 
@@ -93,10 +98,19 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     Log.d(TAG, "onCategoryClick: " + category);
     mAdapter.displayLoading();
     mRecipeListViewModel.searchRecipesApi(category, 1);
+    mSearchView.clearFocus();
   }
 
   private void displaySearchCategories() {
     mRecipeListViewModel.setIsViewingRecipes(false);
     mAdapter.displaySearchCategories();
+  }
+
+  @Override public void onBackPressed() {
+    if (mRecipeListViewModel.onBackPressed()) {
+      super.onBackPressed();
+    } else {
+      displaySearchCategories();
+    }
   }
 }
