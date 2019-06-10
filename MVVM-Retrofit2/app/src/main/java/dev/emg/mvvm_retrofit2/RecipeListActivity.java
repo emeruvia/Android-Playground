@@ -3,7 +3,10 @@ package dev.emg.mvvm_retrofit2;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -43,6 +46,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
       // display search categories
       displaySearchCategories();
     }
+    setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
   }
 
   // Observe the livedata object
@@ -112,5 +116,17 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     } else {
       displaySearchCategories();
     }
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_categories) {
+      displaySearchCategories();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.recipe_search_menu, menu);
+    return super.onCreateOptionsMenu(menu);
   }
 }
