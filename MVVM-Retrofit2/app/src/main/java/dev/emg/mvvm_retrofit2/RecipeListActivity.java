@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -72,6 +73,15 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     mRecyclerView.addItemDecoration(itemDecorator);
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+        if (!mRecyclerView.canScrollVertically(1)) {
+          mRecipeListViewModel.searchNextPage();
+        }
+      }
+    });
   }
 
   private void initSearchView() {

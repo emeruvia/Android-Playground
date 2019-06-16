@@ -98,6 +98,9 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       return CATEGORY_TYPE;
     } else if (mRecipes.get(position).getTitle().equals("LOADING...")) {
       return LOADING_TYPE;
+    } else if (position == mRecipes.size() - 1 && position != 0 &&
+        !mRecipes.get(position).getTitle().equals("EXHAUSTED...")) {
+      return LOADING_TYPE;
     }
     return RECIPE_TYPE;
   }
@@ -122,9 +125,9 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     return false;
   }
 
-  public void displaySearchCategories(){
+  public void displaySearchCategories() {
     List<Recipe> categories = new ArrayList<>();
-    for(int i = 0; i < Constants.DEFAULT_SEARCH_CATEGORIES.length; i++){
+    for (int i = 0; i < Constants.DEFAULT_SEARCH_CATEGORIES.length; i++) {
       Recipe recipe = new Recipe();
       recipe.setTitle(Constants.DEFAULT_SEARCH_CATEGORIES[i]);
       recipe.setImageUrl(Constants.DEFAULT_SEARCH_CATEGORY_IMAGES[i]);
