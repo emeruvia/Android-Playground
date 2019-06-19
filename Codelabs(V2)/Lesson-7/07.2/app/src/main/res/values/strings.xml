@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AsyncTask and AsyncTaskLoader</string>
+    <string name="description">
+        Enter a book name, or part of a book name,
+        or just some text from a book to find the full book title and who wrote the book!
+    </string>
+    <string name="editText_hint">Enter a Book Title</string>
+    <string name="search_books">Search Books</string>
+    <string name="no_results">No results found...</string>
+</resources>
