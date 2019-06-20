@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import static dev.emg.broadcastreceivers.MainActivity.ACTION_CUSTOM_BROADCAST;
+
 public class CustomReceiver extends BroadcastReceiver {
 
   @Override
@@ -22,6 +24,9 @@ public class CustomReceiver extends BroadcastReceiver {
           break;
         case Intent.ACTION_SCREEN_ON:
           toastMessage = "Power screen on";
+          break;
+        case ACTION_CUSTOM_BROADCAST:
+          toastMessage = "Custom Broadcast Received";
           break;
       }
       Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show();
