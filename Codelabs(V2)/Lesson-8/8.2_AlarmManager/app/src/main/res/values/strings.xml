@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Stand Up!</string>
+    <string name="alarm_on">Alarm On</string>
+    <string name="alarm_off">Alarm Off</string>
+</resources>
