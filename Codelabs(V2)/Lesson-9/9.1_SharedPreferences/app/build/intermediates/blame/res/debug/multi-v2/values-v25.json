@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\github\\Android-Playground\\Codelabs(V2)\\Lesson-9\\9.1_SharedPreferences\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v25\\values-v25.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\SumringaH\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\5ebba606672f2c0139ff6b2cd3706eba\\res\\values-v25\\values-v25.xml",
+                    "from": {
+                        "startLines": "2,3,4,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,126,209,308",
+                        "endLines": "2,3,5,7",
+                        "endColumns": "70,82,12,12",
+                        "endOffsets": "121,204,303,414"
+                    }
+                }
+            ]
+        }
+    ]
+}
