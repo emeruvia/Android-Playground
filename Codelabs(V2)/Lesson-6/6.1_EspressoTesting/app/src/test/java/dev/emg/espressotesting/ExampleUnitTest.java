@@ -1,4 +1,4 @@
-package dev.emg.twoactivities;
+package dev.emg.espressotesting;
 
 import org.junit.Test;
 

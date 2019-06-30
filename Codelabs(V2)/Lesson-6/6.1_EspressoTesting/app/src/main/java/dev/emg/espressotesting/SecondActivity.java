@@ -1,5 +1,4 @@
-package dev.emg.twoactivities;
-
+package dev.emg.espressotesting;
 
 import android.content.Intent;
 import android.os.Bundle;
