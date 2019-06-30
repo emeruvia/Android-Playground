@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\github\Android-Playground\Codelabs(V2)\Lesson-6\6.1_EspressoTestingTask3\app\src\androidTest\shaders"/></dataSet><dataSet config="debug"><source path="E:\github\Android-Playground\Codelabs(V2)\Lesson-6\6.1_EspressoTestingTask3\app\src\androidTestDebug\shaders"/></dataSet></merger>

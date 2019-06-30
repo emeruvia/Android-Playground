@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Sun Jun 30 02:20:52 EDT 2019
+0.baseType=DIRECTORY
+0.base=E\:\\github\\Android-Playground\\Codelabs(V2)\\Lesson-6\\6.1_EspressoTestingTask3\\app\\build\\intermediates\\transforms\\dexMerger\\androidTest\\debug\\0
+0.path=classes.dex
+0.set=DEX
+count=1
