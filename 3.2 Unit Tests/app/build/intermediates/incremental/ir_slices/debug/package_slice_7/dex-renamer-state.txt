@@ -1,4 +1,0 @@
-#Sun May 19 20:49:38 EDT 2019
-base.0=C\:\\Users\\egarron\\Documents\\FGCU\\Android-Playground\\3.2 Unit Tests\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\7
-path.0=classes.dex
-renamed.0=classes.dex
