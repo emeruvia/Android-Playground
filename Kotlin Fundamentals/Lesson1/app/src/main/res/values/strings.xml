@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Lesson 1</string>
+  <string name="roll_label">Roll</string>
+  <string name="count_up_label">Count Up</string>
+</resources>
