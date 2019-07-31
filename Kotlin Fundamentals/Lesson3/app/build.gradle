@@ -15,9 +15,7 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
@@ -50,6 +48,8 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   implementation "androidx.appcompat:appcompat:$supportlibVersion"
+  implementation"android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
+  implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha1'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
   testImplementation 'junit:junit:4.12'
