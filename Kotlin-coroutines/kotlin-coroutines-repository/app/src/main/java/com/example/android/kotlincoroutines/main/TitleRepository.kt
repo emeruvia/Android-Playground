@@ -18,13 +18,14 @@ package com.example.android.kotlincoroutines.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.android.kotlincoroutines.main.TitleRepository.RefreshState.Success
-import com.example.android.kotlincoroutines.main.TitleRepository.RefreshState.Error
-import com.example.android.kotlincoroutines.main.TitleRepository.RefreshState.Loading
-import com.example.android.kotlincoroutines.util.BACKGROUND
+import com.example.android.kotlincoroutines.util.FakeNetworkCall
 import com.example.android.kotlincoroutines.util.FakeNetworkError
+import com.example.android.kotlincoroutines.util.FakeNetworkException
 import com.example.android.kotlincoroutines.util.FakeNetworkSuccess
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.LazyThreadSafetyMode.NONE
+import kotlin.coroutines.experimental.suspendCoroutine
 
 /**
  * TitleRepository provides an interface to fetch a title or request a new one be generated.
@@ -52,71 +53,17 @@ class TitleRepository(private val network: MainNetwork, private val titleDao: Ti
         Transformations.map(titleDao.loadTitle()) { it?.title }
     }
 
-    /**
-     * Refresh the current title and save the results to the offline cache.
-     *
-     * This method does not return the new title. Use [TitleRepository.title] to observe
-     * the current tile.
-     *
-     * @param onStateChanged callback called when state changes to Loading, Success, or Error
-     */
-    // TODO: Reimplement with coroutines and remove state listener
-    fun refreshTitle(onStateChanged: TitleStateListener) {
-        onStateChanged(Loading)
-        val call = network.fetchNewWelcome()
-        call.addOnResultListener { result ->
-            when (result) {
-                is FakeNetworkSuccess<String> -> {
-                    BACKGROUND.submit {
-                        // run insertTitle on a background thread
-                        titleDao.insertTitle(Title(result.data))
-                    }
-                    onStateChanged(Success)
-                }
-                is FakeNetworkError -> {
-                    onStateChanged(Error(TitleRefreshError(result.error)))
-                }
+    suspend fun refreshTitle() {
+        withContext(Dispatchers.IO) {
+            try {
+                val result = network.fetchNewWelcome().await()
+                titleDao.insertTitle(Title(result))
+            } catch (e: FakeNetworkException) {
+                throw TitleRefreshError(e)
             }
         }
     }
-
-    /**
-     * Class that represents the state of a refresh request.
-     *
-     * Sealed classes can only be extended from inside this file.
-     */
-    // TODO: Remove this class after rewriting refreshTitle
-    sealed class RefreshState {
-        /**
-         * The request is currently loading.
-         *
-         * An object is a singleton that cannot have more than one instance.
-         */
-        object Loading : RefreshState()
-
-        /**
-         * The request has completed successfully.
-         *
-         * An object is a singleton that cannot have more than one instance.
-         */
-        object Success : RefreshState()
-
-        /**
-         * The request has completed with an error
-         *
-         * @param error error message ready to be displayed to user
-         */
-        class Error(val error: Throwable) : RefreshState()
-    }
 }
-
-/**
- * Listener for [RefreshState] changes.
- *
- * A typealias introduces a shorthand way to say a complex type. It does not create a new type.
- */
-// TODO: Remove this typealias after rewriting refreshTitle
-typealias TitleStateListener = (TitleRepository.RefreshState) -> Unit
 
 /**
  * Thrown when there was a error fetching a new title
@@ -132,4 +79,15 @@ class TitleRefreshError(cause: Throwable) : Throwable(cause.message, cause)
  * @return network result after completion
  * @throws Throwable original exception from library if network request fails
  */
-// TODO: Implement FakeNetworkCall<T>.await() here
+suspend fun <T> FakeNetworkCall<T>.await(): T {
+    return suspendCoroutine { continuation ->
+        run {
+            addOnResultListener { result ->
+                when (result) {
+                    is FakeNetworkSuccess<T> -> continuation.resume(result.data)
+                    is FakeNetworkError -> continuation.resumeWithException(result.error)
+                }
+            }
+        }
+    }
+}
