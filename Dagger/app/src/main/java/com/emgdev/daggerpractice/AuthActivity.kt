@@ -1,6 +1,5 @@
 package com.emgdev.daggerpractice
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import dagger.android.support.DaggerAppCompatActivity
