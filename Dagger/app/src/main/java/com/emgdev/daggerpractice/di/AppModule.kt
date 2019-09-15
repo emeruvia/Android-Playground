@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.emgdev.daggerpractice.R
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * Created by emeruvia on 9/14/2019.
@@ -16,12 +17,14 @@ import dagger.Provides
 @Module
 object AppModule {
 
+  @Singleton
   @JvmStatic
   @Provides
   fun provideRequestOptions(): RequestOptions {
     return RequestOptions.placeholderOf(R.drawable.white_background)
   }
 
+  @Singleton
   @JvmStatic
   @Provides
   fun provideGlideInstance(
@@ -32,6 +35,7 @@ object AppModule {
         .setDefaultRequestOptions(requestOptions)
   }
 
+  @Singleton
   @JvmStatic
   @Provides
   fun provideAppDrawable(application: Application): Drawable {

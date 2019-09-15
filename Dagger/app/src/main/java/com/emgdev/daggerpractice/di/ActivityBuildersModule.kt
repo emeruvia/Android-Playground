@@ -1,6 +1,6 @@
 package com.emgdev.daggerpractice.di
 
-import com.emgdev.daggerpractice.AuthActivity
+import com.emgdev.daggerpractice.auth.AuthActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
