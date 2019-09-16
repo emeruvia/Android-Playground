@@ -1,7 +1,8 @@
-package com.emgdev.daggerpractice.di
+package com.emgdev.daggerpractice.di.auth
 
 import androidx.lifecycle.ViewModel
 import com.emgdev.daggerpractice.auth.AuthViewModel
+import com.emgdev.daggerpractice.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -11,7 +12,7 @@ import dagger.multibindings.IntoMap
  */
 
 @Module
-abstract class AuthModule {
+abstract class AuthViewModelModule {
 
   @Binds
   @IntoMap
