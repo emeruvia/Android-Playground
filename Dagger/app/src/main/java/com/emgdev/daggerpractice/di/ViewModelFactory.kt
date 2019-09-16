@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  * Created by emeruvia on 9/14/2019.
  */
 
-class ViewModelProviderFactory @Inject constructor(
+class ViewModelFactory @Inject constructor(
   private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -42,7 +42,7 @@ class ViewModelProviderFactory @Inject constructor(
 internal abstract class ViewModelBuilder {
   @Binds
   internal abstract fun bindViewModelFactory(
-    factory: ViewModelProviderFactory
+    factory: ViewModelFactory
   ): ViewModelProvider.Factory
 }
 

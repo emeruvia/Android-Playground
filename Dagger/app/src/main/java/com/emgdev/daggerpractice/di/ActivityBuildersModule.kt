@@ -4,11 +4,12 @@ import com.emgdev.daggerpractice.auth.AuthActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
- /**
+/**
  * Place activity declarations that @ContributesAndroidInjector
  */
 @Module
 abstract class ActivityBuildersModule {
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [AuthModule::class])
   abstract fun contributeAuthActivity(): AuthActivity
+
 }

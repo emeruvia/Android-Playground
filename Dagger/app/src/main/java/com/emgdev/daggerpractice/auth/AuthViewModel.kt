@@ -1,6 +1,8 @@
 package com.emgdev.daggerpractice.auth
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -8,6 +10,8 @@ import javax.inject.Inject
  */
 class AuthViewModel : ViewModel {
 
-  @Inject constructor()
+  @Inject constructor() {
+    Timber.d("View model constructor injection is working!")
+  }
 
 }
