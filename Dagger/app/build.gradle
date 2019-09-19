@@ -26,6 +26,9 @@ dependencies {
   def dagger_version = "2.22"
   def glide_version = "4.9.0"
   def retrofit_version = "2.5.0"
+  def rxjava_version = "2.1.1"
+  def rxcalladapter_version = '2.5.0'
+  def reactivestreams_version = "1.1.1"
 
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -54,6 +57,13 @@ dependencies {
   // Retrofit
   implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
   implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+  // RXJava
+  implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+  // RxJava Adapter
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$rxcalladapter_version"
+  // Reactive Streams
+  implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
 
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'androidx.test:runner:1.2.0'
