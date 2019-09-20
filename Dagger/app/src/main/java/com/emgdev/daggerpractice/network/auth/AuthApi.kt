@@ -1,5 +1,6 @@
 package com.emgdev.daggerpractice.network.auth
 
+import com.emgdev.daggerpractice.data.User
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Path

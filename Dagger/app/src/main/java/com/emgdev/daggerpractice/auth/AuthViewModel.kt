@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.emgdev.daggerpractice.network.auth.AuthApi
-import com.emgdev.daggerpractice.network.auth.User
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
+import com.emgdev.daggerpractice.data.User
 
 /**
  * Created by emeruvia on 9/14/2019.
@@ -17,7 +17,9 @@ class AuthViewModel @Inject constructor(authApi: AuthApi) : ViewModel() {
 
   private var authApi: AuthApi? = authApi
 
-  private val authUser: MediatorLiveData<User> = MediatorLiveData()
+//  private val authUser = MediatorLiveData<AuthResource<User>>()
+
+  private val authUser: MediatorLiveData<AuthResource<User>> = MediatorLiveData()
 
   init {
     when (this.authApi) {
@@ -27,17 +29,30 @@ class AuthViewModel @Inject constructor(authApi: AuthApi) : ViewModel() {
   }
 
   fun authenticateWithId(userId: Int) {
-    val source = LiveDataReactiveStreams.fromPublisher(
-      authApi!!.getUser(userId).subscribeOn(Schedulers.io())
-    )
+    authUser.value = AuthResource.loading(null)
 
-    authUser.addSource(source) { user ->
-      authUser.value = user
+    val source = LiveDataReactiveStreams.fromPublisher(
+      authApi!!.getUser(userId)
+        .onErrorReturn {
+          val errorUser = User()
+          errorUser.id = -1
+          errorUser
+        }
+        .map {
+          when (it.id) {
+            -1 -> AuthResource.error("Could not authenticate", null)
+            else -> AuthResource.authenticated(it)
+          }
+        }
+        .subscribeOn(Schedulers.io())
+    )
+    authUser.addSource(source) {
+      authUser.value = it
       authUser.removeSource(source)
     }
   }
 
-  fun observerUser(): LiveData<User> {
+  fun observerUser(): LiveData<AuthResource<User>> {
     return authUser
   }
 }
