@@ -1,5 +1,6 @@
 package com.emgdev.daggerpractice.auth
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,6 +15,7 @@ import com.emgdev.daggerpractice.auth.AuthStatus.ERROR
 import com.emgdev.daggerpractice.auth.AuthStatus.LOADING
 import com.emgdev.daggerpractice.auth.AuthStatus.NOT_AUTHENTICATED
 import com.emgdev.daggerpractice.di.ViewModelFactory
+import com.emgdev.daggerpractice.main.MainActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_auth.login_button
 import kotlinx.android.synthetic.main.activity_auth.login_logo
@@ -49,6 +51,7 @@ class AuthActivity : DaggerAppCompatActivity() {
           AUTHENTICATED -> {
             showProgressBar(false)
             Timber.d("onChanged(): LOGIN SUCCESS: ${authResource.data?.email}")
+            onLoginSuccess()
           }
           ERROR -> {
             showProgressBar(false)
@@ -58,6 +61,12 @@ class AuthActivity : DaggerAppCompatActivity() {
         }
       }
     })
+  }
+
+  private fun onLoginSuccess() {
+    val intent = Intent(this, MainActivity::class.java)
+    startActivity(intent)
+    finish()
   }
 
   private fun showProgressBar(isVisible: Boolean) {

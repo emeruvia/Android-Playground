@@ -2,7 +2,6 @@ package com.emgdev.daggerpractice.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.emgdev.daggerpractice.SessionManager
 import com.emgdev.daggerpractice.network.auth.AuthApi
