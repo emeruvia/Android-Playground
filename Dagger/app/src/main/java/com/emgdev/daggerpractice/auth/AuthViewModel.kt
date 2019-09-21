@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import com.emgdev.daggerpractice.SessionManager
 import com.emgdev.daggerpractice.network.auth.AuthApi
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -13,46 +14,41 @@ import com.emgdev.daggerpractice.data.User
 /**
  * Created by emeruvia on 9/14/2019.
  */
-class AuthViewModel @Inject constructor(authApi: AuthApi) : ViewModel() {
+class AuthViewModel @Inject constructor(authApi: AuthApi, sessionManager: SessionManager) :
+  ViewModel() {
 
   private var authApi: AuthApi? = authApi
-
+  private var sessionManager: SessionManager? = sessionManager
 //  private val authUser = MediatorLiveData<AuthResource<User>>()
 
-  private val authUser: MediatorLiveData<AuthResource<User>> = MediatorLiveData()
-
   init {
-    when (this.authApi) {
-      null -> Timber.d("AuthApi is null")
-      else -> Timber.d("AuthApi has been injected")
-    }
+    Timber.d("AuthViewModel(): Is working!!!!")
   }
 
   fun authenticateWithId(userId: Int) {
-    authUser.value = AuthResource.loading(null)
+    Timber.d("authenticateWithId(): attempting to log in.")
+    sessionManager?.authenticateWithId(queryUserId(userId))
+  }
 
-    val source = LiveDataReactiveStreams.fromPublisher(
+  private fun queryUserId(userId: Int): LiveData<AuthResource<User>> {
+    return LiveDataReactiveStreams.fromPublisher(
       authApi!!.getUser(userId)
         .onErrorReturn {
           val errorUser = User()
           errorUser.id = -1
           errorUser
         }
+        // Wrap User object in AuthResource
         .map {
           when (it.id) {
             -1 -> AuthResource.error("Could not authenticate", null)
             else -> AuthResource.authenticated(it)
           }
         }
-        .subscribeOn(Schedulers.io())
-    )
-    authUser.addSource(source) {
-      authUser.value = it
-      authUser.removeSource(source)
-    }
+        .subscribeOn(Schedulers.io()))
   }
 
-  fun observerUser(): LiveData<AuthResource<User>> {
-    return authUser
+  fun observerAuthState(): LiveData<AuthResource<User>> {
+    return sessionManager?.cachedUser as LiveData<AuthResource<User>>
   }
 }
