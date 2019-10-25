@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_auth.login_logo
 import kotlinx.android.synthetic.main.activity_auth.progress_bar
 import kotlinx.android.synthetic.main.activity_auth.user_id_input
 import timber.log.Timber
+import java.lang.NumberFormatException
 import javax.inject.Inject
 
 class AuthActivity : DaggerAppCompatActivity() {
@@ -83,7 +84,13 @@ class AuthActivity : DaggerAppCompatActivity() {
   }
 
   private fun attemptLogin() {
-    if (TextUtils.isEmpty(user_id_input.text.toString())) return
-    viewModel.authenticateWithId(Integer.parseInt(user_id_input.text.toString()))
+    if (user_id_input.text.toString().isEmpty()) return
+    try {
+      val userId: Int = user_id_input.text.toString().toInt()
+      viewModel.authenticateWithId(userId)
+    } catch (e: NumberFormatException) {
+      Timber.e(e)
+      return
+    }
   }
 }
