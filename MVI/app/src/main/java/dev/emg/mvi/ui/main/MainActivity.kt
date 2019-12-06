@@ -1,7 +1,8 @@
-package dev.emg.mvi
+package dev.emg.mvi.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dev.emg.mvi.R
 
 class MainActivity : AppCompatActivity() {
 
