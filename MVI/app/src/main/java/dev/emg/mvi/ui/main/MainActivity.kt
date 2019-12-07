@@ -2,21 +2,26 @@ package dev.emg.mvi.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import dev.emg.mvi.R
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+  private lateinit var viewModel: MainViewModel
 
-        showMainFragment()
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
 
-    fun showMainFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, MainFragment(), "MainFragment")
-            .commit()
-    }
+    viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+    showMainFragment()
+  }
+
+  fun showMainFragment() {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, MainFragment(), "MainFragment")
+        .commit()
+  }
 
 }
