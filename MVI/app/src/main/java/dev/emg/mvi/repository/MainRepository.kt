@@ -7,26 +7,27 @@ import dev.emg.mvi.ui.main.state.MainViewState
 import dev.emg.mvi.util.ApiEmptyResponse
 import dev.emg.mvi.util.ApiErrorResponse
 import dev.emg.mvi.util.ApiSuccessResponse
+import dev.emg.mvi.util.DataState
 
 object MainRepository {
 
-  fun getBlogPosts(): LiveData<MainViewState> {
+  fun getBlogPosts(): LiveData<DataState<MainViewState>> {
     return Transformations
         .switchMap(RetrofitBuilder.apiService.getBlogPosts()) { apiResponse ->
-          object : LiveData<MainViewState>() {
+          object : LiveData<DataState<MainViewState>>() {
             override fun onActive() {
               super.onActive()
               value = when (apiResponse) {
                 is ApiSuccessResponse -> {
-                  MainViewState(
-                      blogPosts = apiResponse.body
+                  DataState.data(
+                      data = MainViewState(blogPosts = apiResponse.body)
                   )
                 }
                 is ApiErrorResponse -> {
-                  MainViewState() // Handle error?
+                  DataState.error(message = apiResponse.errorMessage)
                 }
                 is ApiEmptyResponse -> {
-                  MainViewState() // Handle empty/error?
+                  DataState.error(message = "Empty response.")
                 }
               }
             }
@@ -35,23 +36,23 @@ object MainRepository {
         }
   }
 
-  fun getUser(userId: String): LiveData<MainViewState> {
+  fun getUser(userId: String): LiveData<DataState<MainViewState>> {
     return Transformations
         .switchMap(RetrofitBuilder.apiService.getUser(userId)) { apiResponse ->
-          object : LiveData<MainViewState>() {
+          object : LiveData<DataState<MainViewState>>() {
             override fun onActive() {
               super.onActive()
               value = when (apiResponse) {
                 is ApiSuccessResponse -> {
-                  MainViewState(
-                      user = apiResponse.body
+                  DataState.data(
+                      data = MainViewState(user = apiResponse.body)
                   )
                 }
                 is ApiErrorResponse -> {
-                  MainViewState() // Handle error?
+                  DataState.error(message = apiResponse.errorMessage)
                 }
                 is ApiEmptyResponse -> {
-                  MainViewState() // Handle empty/error?
+                  DataState.error(message = "Empty response.")
                 }
               }
             }

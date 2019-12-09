@@ -12,6 +12,7 @@ import dev.emg.mvi.ui.main.state.MainViewState
 
 import dev.emg.mvi.ui.main.state.MainStateEvent.*
 import dev.emg.mvi.util.AbsentLiveData
+import dev.emg.mvi.util.DataState
 
 class MainViewModel : ViewModel() {
 
@@ -21,14 +22,14 @@ class MainViewModel : ViewModel() {
   val viewState: LiveData<MainViewState>
     get() = _viewState
 
-  val dataState: LiveData<MainViewState> = Transformations
+  val dataState: LiveData<DataState<MainViewState>> = Transformations
       .switchMap(_stateEvent) { stateEvent ->
         stateEvent?.let {
           handleStateEvent(it)
         }
       }
 
-  private fun handleStateEvent(stateEvent: MainStateEvent): LiveData<MainViewState> {
+  private fun handleStateEvent(stateEvent: MainStateEvent): LiveData<DataState<MainViewState>> {
     return when (stateEvent) {
       is GetBlogPostEvent -> {
         return MainRepository.getBlogPosts()
