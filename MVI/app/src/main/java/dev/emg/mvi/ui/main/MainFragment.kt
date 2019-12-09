@@ -33,6 +33,8 @@ class MainFragment : Fragment() {
     viewModel = activity?.let {
       ViewModelProvider(this).get(MainViewModel::class.java)
     } ?: throw Exception("Invalid activity")
+
+    subscribeObservers()
   }
 
   override fun onCreateOptionsMenu(

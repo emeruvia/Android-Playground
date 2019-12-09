@@ -15,6 +15,5 @@ interface ApiService {
   @GET("placeholder/user/{userId}")
   fun getUser(
     @Path("userId") userId: String
-  ): User
-
+  ): LiveData<GenericApiResponse<User>>
 }
