@@ -7,21 +7,32 @@
     tools:context=".thread.ThreadActivity">
 
     <Button
+        android:id="@+id/callback_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_thread_btn"
+        android:layout_width="wrap_content"
+        android:text="Regular callback"
+        android:layout_height="wrap_content"/>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_thread_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callback_btn"
+        app:layout_constraintBottom_toTopOf="@id/background_thread_btn"
         android:text="Test button main thread"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_thread_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_thread_btn"
         android:paddingTop="8dp"
         android:id="@+id/background_thread_btn"
         android:text="Test button background thread"
