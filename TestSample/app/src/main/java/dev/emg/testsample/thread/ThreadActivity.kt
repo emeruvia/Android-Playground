@@ -3,16 +3,14 @@ package dev.emg.testsample.thread
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Looper
+import com.google.common.base.Objects
+import com.google.common.base.Optional
 import dev.emg.testsample.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_thread.*
 import timber.log.Timber
-import java.util.*
 import java.util.concurrent.Callable
 
 class ThreadActivity : AppCompatActivity() {
@@ -42,26 +40,31 @@ class ThreadActivity : AppCompatActivity() {
         })
     }
 
-    @SuppressLint("CheckResult")
     private fun observableMain() {
-        Observable.fromCallable {
+        Observable.fromCallable(Callable<Optional<Any>> {
             getCallbackData()
-            "observableMain():  Callable.call() -> nothing"
-        }
+            Optional.absent()
+        })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread(), false, 100)
-            .subscribe({}) { throwable -> Timber.e(throwable) }
+            .onErrorReturn {
+                Timber.e(it)
+                Optional.absent()
+            }
+            .subscribe()
     }
 
-    @SuppressLint("CheckResult")
     private fun observableBackground() {
-        Observable.fromCallable {
+        Observable.fromCallable(Callable<Optional<Any>> {
             getCallbackData()
-            "observableBackground(): Callable.call -> Nothing"
-        }
+            Optional.absent()
+        })
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe({}) { throwable -> Timber.e(throwable) }
+            .onErrorReturn {
+                Timber.e(it)
+                Optional.absent()
+            }
+            .subscribe()
     }
-
 }
