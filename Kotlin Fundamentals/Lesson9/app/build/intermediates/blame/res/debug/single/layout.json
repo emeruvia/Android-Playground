@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/emg/github-emg/Android-Playground/Kotlin Fundamentals/Lesson9/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/devbyte_item.xml",
+        "source": "/Users/emg/github-emg/Android-Playground/Kotlin Fundamentals/Lesson9/app/src/main/res/layout/devbyte_item.xml"
+    },
+    {
+        "merged": "/Users/emg/github-emg/Android-Playground/Kotlin Fundamentals/Lesson9/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_dev_byte.xml",
+        "source": "/Users/emg/github-emg/Android-Playground/Kotlin Fundamentals/Lesson9/app/src/main/res/layout/fragment_dev_byte.xml"
+    }
+]
