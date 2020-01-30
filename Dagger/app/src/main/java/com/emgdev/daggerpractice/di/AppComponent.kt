@@ -2,7 +2,7 @@ package com.emgdev.daggerpractice.di
 
 import android.app.Application
 import com.emgdev.daggerpractice.BaseApplication
-import com.emgdev.daggerpractice.di.auth.AuthViewModelModule
+import com.emgdev.daggerpractice.SessionManager
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -19,6 +19,8 @@ import javax.inject.Singleton
     ]
 )
 interface AppComponent : AndroidInjector<BaseApplication> {
+
+  val sessionManager: SessionManager
 
   @Component.Builder
   interface Builder {
