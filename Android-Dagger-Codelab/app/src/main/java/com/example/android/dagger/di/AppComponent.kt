@@ -19,6 +19,7 @@ interface AppComponent {
 
     // Expose RegistrationComponent factory from the graph
     fun registrationComponent(): RegistrationComponent.Factory
+    fun loginComponent(): LoginComponent.Factory
 
     // Classes that can be injected by this component
     fun inject(activity: MainActivity)

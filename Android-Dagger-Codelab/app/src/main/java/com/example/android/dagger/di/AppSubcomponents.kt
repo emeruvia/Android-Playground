@@ -2,5 +2,5 @@ package com.example.android.dagger.di
 
 import dagger.Module
 
-@Module(subcomponents = [RegistrationComponent::class])
+@Module(subcomponents = [RegistrationComponent::class, LoginComponent::class])
 class AppSubcomponents
