@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
+import com.example.android.dagger.di.RegistrationComponent
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.enterdetails.EnterDetailsFragment
 import com.example.android.dagger.registration.termsandconditions.TermsAndConditionsFragment
@@ -28,13 +29,17 @@ import javax.inject.Inject
 
 class RegistrationActivity : AppCompatActivity() {
 
+    // Stores an instance of RegistrationComponent so that its Fragments can access it
+    lateinit var registrationComponent: RegistrationComponent
+
     @Inject // @Inject annotated fileds will be provided by Dagger
     lateinit var registrationViewModel: RegistrationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Grabs instance of the application graph and populates @Inject fields with
-        // objects from the graph
-        (application as MyApplication).appComponent.inject(this)
+
+        registrationComponent =
+            (application as MyApplication).appComponent.registrationComponent().create()
+        registrationComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)

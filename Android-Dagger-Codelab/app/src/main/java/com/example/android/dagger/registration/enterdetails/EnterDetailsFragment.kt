@@ -55,7 +55,8 @@ class EnterDetailsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity!!.application as MyApplication).appComponent.inject(this)
+
+        (activity as RegistrationActivity).registrationComponent.inject(this)
     }
 
     override fun onCreateView(

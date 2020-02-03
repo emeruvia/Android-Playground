@@ -5,6 +5,7 @@ import com.example.android.dagger.registration.enterdetails.EnterDetailsFragment
 import com.example.android.dagger.registration.termsandconditions.TermsAndConditionsFragment
 import dagger.Subcomponent
 
+@ActivityScope
 @Subcomponent
 interface RegistrationComponent {
 
