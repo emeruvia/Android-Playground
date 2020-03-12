@@ -69,6 +69,7 @@
   <string name="publish">Publish</string>
   <string name="edit">Edit</string>
   <string name="save">Save</string>
+  <string name="field_forgot_password">Forgot password</string>
 
 </resources>
 
