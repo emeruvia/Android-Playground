@@ -2,12 +2,19 @@ package dev.emg.powerfulandroid.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import dev.emg.powerfulandroid.R
+import dev.emg.powerfulandroid.BaseApplication
+import dev.emg.powerfulandroid.session.SessionManager
+import javax.inject.Inject
 
-class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
+
+  abstract fun inject()
+
+  @Inject lateinit var sessionManager: SessionManager
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    (application as BaseApplication).appComponent
+        .inject(this)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_base)
   }
 }
