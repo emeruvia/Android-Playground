@@ -21,7 +21,8 @@ open class BaseApplication : Application() {
 ////        .build()
 ////  }
   val appComponent: AppComponent by lazy {
-    DaggerAppComponent.factory().create(this)
+    DaggerAppComponent.factory()
+        .create(this)
   }
 
 //  fun authComponent(): AuthComponent {
