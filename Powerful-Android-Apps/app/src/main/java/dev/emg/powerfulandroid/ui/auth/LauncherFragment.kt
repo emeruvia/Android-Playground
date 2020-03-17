@@ -15,7 +15,8 @@ class LauncherFragment : Fragment() {
   private val binding get() = _binding!!
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     _binding = FragmentLauncherBinding.inflate(inflater, container, false)
@@ -23,7 +24,10 @@ class LauncherFragment : Fragment() {
     return view
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
     super.onViewCreated(view, savedInstanceState)
 
     binding.register.setOnClickListener {

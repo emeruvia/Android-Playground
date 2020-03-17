@@ -27,7 +27,7 @@ object AppModule {
   @Provides
   fun provideGsonBuilder(): Gson {
     return GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-      .create()
+        .create()
   }
 
   @JvmStatic
@@ -35,9 +35,9 @@ object AppModule {
   @Provides
   fun provideRetrofitBuilder(gson: Gson): Retrofit.Builder {
     return Retrofit.Builder()
-      .baseUrl(Constants.BASE_URL)
-      .addCallAdapterFactory(LiveDataCallAdapterFactory())
-      .addConverterFactory(GsonConverterFactory.create(gson))
+        .baseUrl(Constants.BASE_URL)
+        .addCallAdapterFactory(LiveDataCallAdapterFactory())
+        .addConverterFactory(GsonConverterFactory.create(gson))
   }
 
   @JvmStatic

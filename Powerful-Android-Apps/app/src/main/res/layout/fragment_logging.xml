@@ -43,10 +43,10 @@
           android:id="@+id/input_email"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:autofillHints="@string/email_field"
           android:hint="@string/email_field"
           android:inputType="textEmailAddress"
           android:textColor="#000"
-          android:autofillHints="@string/email_field"
           />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -66,10 +66,10 @@
           android:id="@+id/input_password"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:autofillHints="@string/field_password"
           android:hint="@string/field_password"
           android:inputType="textPassword"
           android:textColor="#000"
-          android:autofillHints="@string/field_password"
           />
 
     </com.google.android.material.textfield.TextInputLayout>

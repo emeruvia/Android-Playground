@@ -18,7 +18,8 @@ class AuthActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
 
-    authComponent = (application as BaseApplication).appComponent.authComponent().create()
+    authComponent = (application as BaseApplication).appComponent.authComponent()
+        .create()
     authComponent.inject(this)
 
     super.onCreate(savedInstanceState)

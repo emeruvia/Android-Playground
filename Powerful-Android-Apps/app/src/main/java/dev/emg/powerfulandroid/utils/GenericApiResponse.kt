@@ -22,7 +22,7 @@ sealed class GenericApiResponse<T> {
   companion object {
     fun <T> create(error: Throwable): ApiErrorResponse<T> {
       return ApiErrorResponse(
-        error.message ?: "unknown error"
+          error.message ?: "unknown error"
       )
     }
 
@@ -44,14 +44,14 @@ sealed class GenericApiResponse<T> {
         }
       } else {
         val msg = response.errorBody()
-          ?.string()
+            ?.string()
         val errorMsg = if (msg.isNullOrEmpty()) {
           response.message()
         } else {
           msg
         }
         return ApiErrorResponse(
-          errorMsg ?: "unknown error"
+            errorMsg ?: "unknown error"
         )
       }
     }

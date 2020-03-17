@@ -16,7 +16,7 @@ class AuthViewModel @Inject constructor(val authRepository: AuthRepository) : Vi
 
   fun testRegister(): LiveData<GenericApiResponse<RegistrationResponse>> {
     return authRepository.testRegistrationRequest(
-      "test123@gmail.com", "testing user", "test123", "test123"
+        "test123@gmail.com", "testing user", "test123", "test123"
     )
   }
 

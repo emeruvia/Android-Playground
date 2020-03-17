@@ -46,19 +46,19 @@ class LoginFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     viewModel.testLogin()
-      .observe(viewLifecycleOwner, Observer { response ->
-        when (response) {
-          is GenericApiResponse.ApiSuccessResponse -> {
-            Timber.d("Login Response: ${response.body}")
+        .observe(viewLifecycleOwner, Observer { response ->
+          when (response) {
+            is GenericApiResponse.ApiSuccessResponse -> {
+              Timber.d("Login Response: ${response.body}")
+            }
+            is ApiErrorResponse -> {
+              Timber.e("Login Response: ${response.errorMessage}")
+            }
+            is ApiEmptyResponse -> {
+              Timber.e("Login Response: empty response")
+            }
           }
-          is ApiErrorResponse -> {
-            Timber.e("Login Response: ${response.errorMessage}")
-          }
-          is ApiEmptyResponse -> {
-            Timber.e("Login Response: empty response")
-          }
-        }
-      })
+        })
   }
 
 }

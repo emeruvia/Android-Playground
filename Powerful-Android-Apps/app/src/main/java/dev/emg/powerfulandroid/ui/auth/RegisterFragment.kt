@@ -30,29 +30,34 @@ class RegisterFragment : Fragment() {
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     // Inflate the layout for this fragment
     return inflater.inflate(R.layout.fragment_register, container, false)
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
     super.onViewCreated(view, savedInstanceState)
 
-    viewModel.testRegister().observe(viewLifecycleOwner, Observer { response ->
-      when (response) {
-        is GenericApiResponse.ApiSuccessResponse -> {
-          Timber.d("Register Response: ${response.body}")
-        }
-        is GenericApiResponse.ApiErrorResponse -> {
-          Timber.e("Register Response: ${response.errorMessage}")
-        }
-        is GenericApiResponse.ApiEmptyResponse -> {
-          Timber.d("Register Response: empty response")
-        }
-      }
-    })
+    viewModel.testRegister()
+        .observe(viewLifecycleOwner, Observer { response ->
+          when (response) {
+            is GenericApiResponse.ApiSuccessResponse -> {
+              Timber.d("Register Response: ${response.body}")
+            }
+            is GenericApiResponse.ApiErrorResponse -> {
+              Timber.e("Register Response: ${response.errorMessage}")
+            }
+            is GenericApiResponse.ApiEmptyResponse -> {
+              Timber.d("Register Response: empty response")
+            }
+          }
+        })
   }
 
 }

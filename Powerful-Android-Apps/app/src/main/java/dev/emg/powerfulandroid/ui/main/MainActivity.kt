@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
 
-    mainComponent = (application as BaseApplication).appComponent.mainComponent().create()
+    mainComponent = (application as BaseApplication).appComponent.mainComponent()
+        .create()
     mainComponent.inject(this)
 
     super.onCreate(savedInstanceState)

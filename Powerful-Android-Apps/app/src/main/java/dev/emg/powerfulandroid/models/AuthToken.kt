@@ -9,13 +9,13 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Entity(
-  tableName = "auth_token",
-  foreignKeys = [ForeignKey(
-    entity = AccountProperties::class,
-    parentColumns = ["pk"],
-    childColumns = ["account_pk"],
-    onDelete = CASCADE
-  )]
+    tableName = "auth_token",
+    foreignKeys = [ForeignKey(
+        entity = AccountProperties::class,
+        parentColumns = ["pk"],
+        childColumns = ["account_pk"],
+        onDelete = CASCADE
+    )]
 )
 data class AuthToken(
   @PrimaryKey

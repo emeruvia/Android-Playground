@@ -28,6 +28,7 @@
         android:id="@+id/app_logo"
         android:layout_width="0dp"
         android:layout_height="75dp"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/codingwithmitch_logo"
         app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +36,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".4"
         app:layout_constraintVertical_chainStyle="packed"
-        android:contentDescription="@string/app_name"
         />
 
 
