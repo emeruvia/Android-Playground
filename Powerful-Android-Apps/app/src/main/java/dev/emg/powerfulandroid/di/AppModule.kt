@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dev.emg.powerfulandroid.R
@@ -12,10 +14,32 @@ import dev.emg.powerfulandroid.persistance.AccountPropertiesDao
 import dev.emg.powerfulandroid.persistance.AppDatabase
 import dev.emg.powerfulandroid.persistance.AppDatabase.Companion.DB_NAME
 import dev.emg.powerfulandroid.persistance.AuthTokenDao
+import dev.emg.powerfulandroid.utils.Constants
+import dev.emg.powerfulandroid.utils.LiveDataCallAdapterFactory
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 object AppModule {
+  @JvmStatic
+  @Singleton
+  @Provides
+  fun provideGsonBuilder(): Gson {
+    return GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+      .create()
+  }
+
+  @JvmStatic
+  @Singleton
+  @Provides
+  fun provideRetrofitBuilder(gson: Gson): Retrofit.Builder {
+    return Retrofit.Builder()
+      .baseUrl(Constants.BASE_URL)
+      .addCallAdapterFactory(LiveDataCallAdapterFactory())
+      .addConverterFactory(GsonConverterFactory.create(gson))
+  }
+
   @JvmStatic
   @Singleton
   @Provides
@@ -57,6 +81,7 @@ object AppModule {
     return Glide.with(application)
         .setDefaultRequestOptions(requestOptions)
   }
+
 //  @JvmStatic
 //  @Singleton
 //  @Provides

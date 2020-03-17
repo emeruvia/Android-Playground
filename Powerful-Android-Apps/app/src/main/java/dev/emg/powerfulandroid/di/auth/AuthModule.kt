@@ -1,6 +1,5 @@
 package dev.emg.powerfulandroid.di.auth
 
-import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dev.emg.powerfulandroid.api.auth.OpenApiAuthService
@@ -12,6 +11,13 @@ import retrofit2.Retrofit
 
 @Module
 object AuthModule {
+
+//  @JvmStatic
+//  @AuthScope
+//  @Provides
+//  fun provideSharedPreference(context: Context): SharedPreferences {
+//    return context.getSharedPreferences()
+//  }
 
   @JvmStatic
   @AuthScope
@@ -28,9 +34,9 @@ object AuthModule {
     sessionManager: SessionManager,
     authTokenDao: AuthTokenDao,
     accountPropertiesDao: AccountPropertiesDao,
-    openApiAuthService: OpenApiAuthService,
-    preferences: SharedPreferences,
-    editor: SharedPreferences.Editor
+    openApiAuthService: OpenApiAuthService
+//    preferences: SharedPreferences,
+//    editor: SharedPreferences.Editor
   ): AuthRepository {
     return AuthRepository(authTokenDao, accountPropertiesDao, openApiAuthService, sessionManager)
   }
