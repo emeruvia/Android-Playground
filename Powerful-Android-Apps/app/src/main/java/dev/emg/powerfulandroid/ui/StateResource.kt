@@ -1,6 +1,7 @@
 package dev.emg.powerfulandroid.ui
 
 data class Loading(val isLoading: Boolean)
+
 data class Data<T>(
   val data: Event<T>?,
   val response: Event<Response>?

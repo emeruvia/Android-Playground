@@ -15,8 +15,8 @@ data class DataState<T>(
       cachedData: T? = null
     ): DataState<T> {
       return DataState(
-          loading = Loading(isLoading),
-          data = Data(Event.dataEvent(cachedData), null)
+        loading = Loading(isLoading),
+        data = Data(Event.dataEvent(cachedData), null)
       )
     }
 

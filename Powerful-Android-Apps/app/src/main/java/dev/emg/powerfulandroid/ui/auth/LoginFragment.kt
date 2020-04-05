@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import dev.emg.powerfulandroid.R
+import dev.emg.powerfulandroid.databinding.FragmentLoggingBinding
 import dev.emg.powerfulandroid.di.auth.AuthScope
-import dev.emg.powerfulandroid.utils.GenericApiResponse
-import dev.emg.powerfulandroid.utils.GenericApiResponse.ApiEmptyResponse
-import dev.emg.powerfulandroid.utils.GenericApiResponse.ApiErrorResponse
-import timber.log.Timber
+import dev.emg.powerfulandroid.ui.auth.state.LoginFields
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
@@ -25,6 +22,9 @@ class LoginFragment : Fragment() {
   @AuthScope
   @Inject lateinit var viewModel: AuthViewModel
 
+  private var _binding: FragmentLoggingBinding? = null
+  private val binding get() = _binding!!
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
@@ -36,7 +36,9 @@ class LoginFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_logging, container, false)
+    _binding = FragmentLoggingBinding.inflate(inflater, container, false)
+    val view = binding.root
+    return view
   }
 
   override fun onViewCreated(
@@ -45,20 +47,27 @@ class LoginFragment : Fragment() {
   ) {
     super.onViewCreated(view, savedInstanceState)
 
-    viewModel.testLogin()
-        .observe(viewLifecycleOwner, Observer { response ->
-          when (response) {
-            is GenericApiResponse.ApiSuccessResponse -> {
-              Timber.d("Login Response: ${response.body}")
-            }
-            is ApiErrorResponse -> {
-              Timber.e("Login Response: ${response.errorMessage}")
-            }
-            is ApiEmptyResponse -> {
-              Timber.e("Login Response: empty response")
-            }
-          }
-        })
+    subscribeObservers()
+  }
+
+  override fun onDestroyView() {
+    viewModel.setLoginFields(
+      LoginFields(
+        binding.inputEmail.toString(),
+        binding.inputPassword.toString()
+      )
+    )
+
+    super.onDestroyView()
+  }
+
+  fun subscribeObservers() {
+    viewModel.viewState.observe(viewLifecycleOwner, Observer { result ->
+      result.loginFields?.let { loginField ->
+        loginField.login_email?.let { binding.inputEmail.setText(it) }
+        loginField.login_password?.let { binding.inputPassword.setText(it) }
+      }
+    })
   }
 
 }
