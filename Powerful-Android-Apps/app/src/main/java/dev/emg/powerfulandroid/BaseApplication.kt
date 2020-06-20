@@ -3,6 +3,7 @@ package dev.emg.powerfulandroid
 import android.app.Application
 import dev.emg.powerfulandroid.di.AppComponent
 import dev.emg.powerfulandroid.di.DaggerAppComponent
+import timber.log.Timber
 
 open class BaseApplication : Application() {
 
@@ -10,11 +11,15 @@ open class BaseApplication : Application() {
 //  private var authComponent: AuthComponent? = null
 //  private var mainComponent: MainComponent? = null
 
-  //  override fun onCreate() {
-////    super.onCreate()
-////    initAppComponent()
-////  }
-////
+  override fun onCreate() {
+    super.onCreate()
+
+    if (BuildConfig.DEBUG) {
+      Timber.plant(Timber.DebugTree())
+    }
+  }
+
+  ////
 ////  fun initAppComponent() {
 ////    appComponent = DaggerAppComponent.builder()
 ////        .application(this)
@@ -22,7 +27,7 @@ open class BaseApplication : Application() {
 ////  }
   val appComponent: AppComponent by lazy {
     DaggerAppComponent.factory()
-        .create(this)
+      .create(this)
   }
 
 //  fun authComponent(): AuthComponent {

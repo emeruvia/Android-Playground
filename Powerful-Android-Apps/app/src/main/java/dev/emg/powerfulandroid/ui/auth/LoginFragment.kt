@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import dev.emg.powerfulandroid.databinding.FragmentLoggingBinding
 import dev.emg.powerfulandroid.di.auth.AuthScope
+import dev.emg.powerfulandroid.models.AuthToken
 import dev.emg.powerfulandroid.ui.auth.state.LoginFields
+import timber.log.Timber
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
@@ -48,6 +50,11 @@ class LoginFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     subscribeObservers()
+    Timber.d("onViewCreated()!")
+    binding.loginButton.setOnClickListener {
+      Timber.d("loginButton(): was clicked")
+      viewModel.setAuthToken(AuthToken(1, "asdfqwerasdfa "))
+    }
   }
 
   override fun onDestroyView() {
