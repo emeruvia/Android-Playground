@@ -1,0 +1,2 @@
+rootProject.name='Powerful Android'
+include ':app'
