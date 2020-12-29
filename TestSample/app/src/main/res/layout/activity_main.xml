@@ -19,6 +19,12 @@
             android:text="launch thread activity"
             />
 
+        <Button
+            android:id="@+id/livedata_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MediatorLiveData Test"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
